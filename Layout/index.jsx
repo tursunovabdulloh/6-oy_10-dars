@@ -1,55 +1,83 @@
+
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./style.css"
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-
+import "./style.css";
+import { Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import Header from "../Pages/Header";
 
 function Layout() {
-  function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
+  const [data, setData] = useState(JSON.parse(localStorage.getItem("usersData")) || [])
   
-  return(
-          <div className="container still">
-  <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
+  
+  function deleteData (email){
+    const updatedRows = data.filter((row)=> row.email !== email)
+    setData(updatedRows) 
+   localStorage.setItem('usersData', JSON.stringify(updatedRows))
+  }
+     
+  function DeleteAll() {
+    data.map(({email}) =>{
+   const updatedRows = data.filter((item)=> item.email == email && item.email !== email)
+    setData(updatedRows) 
+   localStorage.setItem('usersData', JSON.stringify(updatedRows))
+    })}
+     
+
+
+ 
+  return (
+    <>
+       
+        <Header/>
+      
+    <div  className="container still">
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow className="tablerow">
+              <TableCell>Users</TableCell>
+              <TableCell align="right">Name</TableCell>
+              <TableCell align="right">Avatar</TableCell>
+              <TableCell align="right">Email</TableCell>
+              <TableCell align="right">Password</TableCell>
+              <TableCell align="right">
+                <button onClick={() => {DeleteAll()}} className="deleteBtn">DeleteAll</button>
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-          </div>
-  )
+          </TableHead>
+          <TableBody>
+            {data.map((rows, index) => (
+              <TableRow key={rows.name}>
+                <TableCell component="th" scope="row">
+                  {index + 1}
+                </TableCell>
+                <TableCell  align="right">{rows.name}</TableCell>
+                <TableCell align="right">
+                <img src={rows.avatar} alt="" width={30}/> 
+                </TableCell>
+                <TableCell align="right">{rows.email}</TableCell>
+                <TableCell align="right">{rows.password}</TableCell>
+                 <TableCell align="right">
+                 <img onClick={() => deleteData(rows.email)} src="../public/images/fr.png" alt=""  width={24}/>
+                 </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+    </>
+  );
 }
 
 export default Layout;
+
+
+
+
+
+
+
+
+
+

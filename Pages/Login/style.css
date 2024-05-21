@@ -1,3 +1,4 @@
+
 .login-container {
   display: flex;
   flex-direction: column;
@@ -18,7 +19,6 @@
   padding-left: 96px;
   padding-right: 61px;
 }
-
 .logo {
   display: flex;
   flex-direction: column;
@@ -122,7 +122,6 @@
   border: 0;
   border-radius: 11px;
   margin-bottom: 59px;
-
 }
 .signup-btn:hover{
   opacity: 0.5;
@@ -146,4 +145,66 @@
   color: rgba(255, 0, 0);
   font-family: monospace;
   font-weight: 600;
+}
+
+
+@media (max-width: 1200px) {
+  .box {
+    width: 650px;
+    padding-left: 80px;
+    padding-right: 50px;
+  }
+  .email-inp, .password-inp, .submit-btn, .signup-btn {
+    width: 500px;
+  }
+  .logo {
+    margin-right: 300px;
+  }
+}
+
+@media (max-width: 992px) {
+  .box {
+    width: 600px;
+    padding-left: 60px;
+    padding-right: 40px;
+  }
+  .email-inp, .password-inp, .submit-btn, .signup-btn {
+    width: 450px;
+  }
+  .logo {
+    margin-right: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .box {
+    width: 500px;
+    padding-left: 40px;
+    padding-right: 30px;
+  }
+  .email-inp, .password-inp, .submit-btn, .signup-btn {
+    width: 400px;
+  }
+  .logo {
+    margin-right: 100px;
+  }
+}
+
+@media (max-width: 576px) {
+  .box {
+    width: 100%;
+    padding: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .email-inp, .password-inp, .submit-btn, .signup-btn {
+    width: 100%;
+  }
+  .logo {
+    margin-right: 0;
+  }
+  .last-text {
+    margin-left: 0;
+    text-align: center;
+  }
 }
