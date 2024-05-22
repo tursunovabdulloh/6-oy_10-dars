@@ -47,6 +47,7 @@
   .avatar-div{
     display: flex;
     align-items: center;
+    cursor:  pointer;
     gap: 12px;
     padding: 10px;
   }

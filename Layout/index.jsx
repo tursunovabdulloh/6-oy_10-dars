@@ -2,70 +2,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
-import { Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import Header from "../Pages/Header";
 
 function Layout() {
-  const [data, setData] = useState(JSON.parse(localStorage.getItem("usersData")) || [])
-  
-  
-  function deleteData (email){
-    const updatedRows = data.filter((row)=> row.email !== email)
-    setData(updatedRows) 
-   localStorage.setItem('usersData', JSON.stringify(updatedRows))
-  }
-     
-  function DeleteAll() {
-    data.map(({email}) =>{
-   const updatedRows = data.filter((item)=> item.email == email && item.email !== email)
-    setData(updatedRows) 
-   localStorage.setItem('usersData', JSON.stringify(updatedRows))
-    })}
+
      
 
 
  
   return (
     <>
-       
         <Header/>
-      
-    <div  className="container still">
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-          <TableHead>
-            <TableRow className="tablerow">
-              <TableCell>Users</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Avatar</TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell align="right">Password</TableCell>
-              <TableCell align="right">
-                <button onClick={() => {DeleteAll()}} className="deleteBtn">DeleteAll</button>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((rows, index) => (
-              <TableRow key={rows.name}>
-                <TableCell component="th" scope="row">
-                  {index + 1}
-                </TableCell>
-                <TableCell  align="right">{rows.name}</TableCell>
-                <TableCell align="right">
-                <img src={rows.avatar} alt="" width={30}/> 
-                </TableCell>
-                <TableCell align="right">{rows.email}</TableCell>
-                <TableCell align="right">{rows.password}</TableCell>
-                 <TableCell align="right">
-                 <img onClick={() => deleteData(rows.email)} src="../public/images/fr.png" alt=""  width={24}/>
-                 </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+
     </>
   );
 }

@@ -13,8 +13,29 @@ function SignUp() {
 
   const [errors, setErrors] = useState({});
 
+  function validateInput(input) {
+    let errors = {};
+    if (!input.name) errors.name = "Name is required";
+    if (!input.avatar) errors.avatar = "Avatar URL is required";
+    else if (!/^https?:\/\/.+\.(jpg|jpeg|png|gif)$/.test(input.avatar))
+      errors.avatar = "Invalid avatar URL format";
+    if (!input.email) errors.email = "Email is required";
+    else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input.email))
+      errors.email = "Invalid email format";
+    if (!input.password) errors.password = "Password is required";
+    else if (input.password.length < 6)
+      errors.password = "Password must be at least 6 characters long";
+    return errors;
+  }
 
   function handleSubmit(e) {
+    e.preventDefault();
+
+    const validationErrors = validateInput(userInput);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     const data = JSON.parse(localStorage.getItem("usersData")) ?? [];
     localStorage.setItem("usersData", JSON.stringify([...data, userInput]));
@@ -27,6 +48,8 @@ function SignUp() {
     });
     setErrors({});
   }
+
+
 
   return (
     <section>
@@ -55,7 +78,7 @@ function SignUp() {
                 }
                 className={style.passwordInp}
                 type="url"
-                placeholder="Avatar"
+                placeholder="Url"
               />
               {errors.avatar && <p className={style.error}>{errors.avatar}</p>}
             </div>
@@ -98,6 +121,7 @@ function SignUp() {
           <Link to={"/"} className={style.a}>
             Login
           </Link>
+
         </div>
       </div>
     </section>
